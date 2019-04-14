@@ -63,7 +63,7 @@ class ProtocolByte(ProtocolBase):
         numBytes = struct.pack('<i', num)
         self.bytes += numBytes
 
-    def GetIntFrom(self, start):
+    def GetIntFromTo(self, start):
         if self.bytes == b'':
             return 0, start
         if len(self.bytes) < start + 4:
@@ -112,7 +112,7 @@ class ProtocolByte(ProtocolBase):
 #     p.AddFloat(0.1)
 #     print "p.GetDesc: ", p.GetDesc()
 #     print "p.GetName:", p.GetName()
-#     print "p.GetIntFrom(0):", p.GetIntFrom(0)
+#     print "p.GetIntFromTo(0):", p.GetIntFromTo(0)
 # except Exception as e:
 #     print e.message
 

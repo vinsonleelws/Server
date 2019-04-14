@@ -50,20 +50,45 @@ class Scene(object):
             protocol.AddFloat(p.x)
             protocol.AddFloat(p.y)
             protocol.AddFloat(p.z)
-            protocol.AddInt(p.score)
         player.Send(protocol)
 
-    # Update information
-    def UpdateInfo(self, id, x, y, z, score):
-        count = len(self.playerList)
-        protocol = ProtocolByte.ProtocolByte()
+    # Update pos
+    def UpdatePos(self, id, x, y, z):
         p = self.GetScenePlayer(id)
         if p is None:
             return
         p.x = x
         p.y = y
         p.z = z
+
+    # Update score
+    def UpdateScore(self, id, score):
+        p = self.GetScenePlayer(id)
+        if p is None:
+            return
         p.score = score
+
+    # Update health
+    def UpdateHealth(self, id, health):
+        p = self.GetScenePlayer(id)
+        if p is None:
+            return
+        p.health = health
+
+    # Update ammo
+    def UpdateAmmo(self, id, weaponType, carryingAmmo, clipAmmo):
+        p = self.GetScenePlayer(id)
+        if p is None:
+            return
+        if weaponType == "Pistol":
+            p.pistolCarryingAmmo = carryingAmmo
+            p.pistolClipAmmo = clipAmmo
+        elif weaponType == "Rifle":
+            p.rifleCarryingAmmo = carryingAmmo
+            p.rifleClipAmmo = clipAmmo
+        else:
+            print "[Warning] Scene.UpdateAmmo: weapon type not found: ", weaponType
+
 
 # Singleton pattern
 scene = Scene()
